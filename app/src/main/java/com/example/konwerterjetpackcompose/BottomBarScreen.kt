@@ -1,0 +1,27 @@
+package com.example.konwerterjetpackcompose
+
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.*
+import androidx.compose.ui.graphics.vector.ImageVector
+
+sealed class BottomBarScreen(
+    val route: String,
+    val title: String,
+    val icon: ImageVector
+) {
+    object HomeEurPl : BottomBarScreen(
+        route = "homeEurPl",
+        title = "Home",
+        icon = Icons.Default.Home
+    )
+    object AllCurrencies : BottomBarScreen(
+        route = "allCurrencies",
+        title = "All Currencies",
+        icon = Icons.Default.Menu
+    )
+    object CalculatorEurPl : BottomBarScreen(
+        route = "calculatorEurPl",
+        title = "Calculator",
+        icon = Icons.Default.ArrowDropDown
+    )
+}
