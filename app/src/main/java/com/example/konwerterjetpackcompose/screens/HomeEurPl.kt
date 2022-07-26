@@ -16,7 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 //const val euroValue = "4,78"
 //const val currentDate = "16.07.2022"
 
-var euroValue : Double? = 5.0
+var euroValue : Double = 5.0
 var currentDate = ""
 
 @Composable

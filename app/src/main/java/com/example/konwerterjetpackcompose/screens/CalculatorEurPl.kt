@@ -1,5 +1,6 @@
 package com.example.konwerterjetpackcompose.screens
 
+import android.util.Log
 import android.widget.Space
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -17,10 +18,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kotlin.math.roundToInt
 
 @Composable
 fun CalculatorEurPl() {
-    var euroValueToCalculate by remember { mutableStateOf(100)}
+    var euroValueToCalculate by remember { mutableStateOf(euroValue)}
     var amountToExchange by remember { mutableStateOf("0")}
     var expectedAmout by remember {
         mutableStateOf(0.0)
@@ -58,7 +60,7 @@ fun CalculatorEurPl() {
                     ) {
                         Button(
                             onClick = {
-                                euroValueToCalculate--
+                                euroValueToCalculate-=0.01
                             },
                             colors = ButtonDefaults.buttonColors(
                                 backgroundColor = Color.White,
@@ -78,7 +80,7 @@ fun CalculatorEurPl() {
                         }
                         Button(
                             onClick = {
-                                euroValueToCalculate++
+                                euroValueToCalculate+=0.01
                             },
                             colors = ButtonDefaults.buttonColors(
                                 backgroundColor = Color.White,
@@ -95,15 +97,16 @@ fun CalculatorEurPl() {
                 }
             }
             Button(onClick = {
-                expectedAmout = euroValueToCalculate * amountToExchange.toDouble()
+                expectedAmout = euroValueToCalculate * amountToExchange.toDouble()//) * 100).roundToInt() / 100.0
             }) {
                 Text(text = "Oblicz")
             }
 
             Text(
-                text = "Otrzymamy $expectedAmout zł",
-                fontSize = MaterialTheme.typography.h5.fontSize,
-                fontWeight = FontWeight.Bold
+                text = String.format("%.2f zł", expectedAmout),
+                fontSize = MaterialTheme.typography.h2.fontSize,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center
             )
         }
     }
