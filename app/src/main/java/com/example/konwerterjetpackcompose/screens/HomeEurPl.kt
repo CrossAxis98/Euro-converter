@@ -17,7 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 //const val currentDate = "16.07.2022"
 
 var euroValue : Double = 5.0
-var currentDate = ""
+var currentDate = "dupa"
 
 @Composable
 fun HomeEurPl() {
@@ -29,7 +29,7 @@ fun HomeEurPl() {
     ) {
         Column {
             Text(
-                text = "$euroValue zł",
+                text = String.format("%.2f zł", euroValue),
                 fontSize = MaterialTheme.typography.h1.fontSize,
                 fontWeight = FontWeight.Bold,
                 color = Color.Black

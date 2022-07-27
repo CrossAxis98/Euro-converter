@@ -73,7 +73,7 @@ fun CalculatorEurPl() {
                         Box(contentAlignment = Alignment.Center)
                         {
                             Text(
-                                "$euroValueToCalculate zł",
+                                String.format("%.2f zł", euroValueToCalculate),
                                 textAlign = TextAlign.Center,
                                 fontSize = 30.sp
                             )
@@ -97,7 +97,7 @@ fun CalculatorEurPl() {
                 }
             }
             Button(onClick = {
-                expectedAmout = euroValueToCalculate * amountToExchange.toDouble()//) * 100).roundToInt() / 100.0
+                expectedAmout = euroValueToCalculate * amountToExchange.toDouble()
             }) {
                 Text(text = "Oblicz")
             }
