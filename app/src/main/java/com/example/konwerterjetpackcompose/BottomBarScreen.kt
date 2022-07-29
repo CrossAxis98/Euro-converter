@@ -15,11 +15,6 @@ sealed class BottomBarScreen(
         icon = Icons.Default.Home
 
     )
-    object AllCurrencies : BottomBarScreen(
-        route = "allCurrencies",
-        title = "Waluty",
-        icon = Icons.Default.Menu
-    )
     object CalculatorEurPl : BottomBarScreen(
         route = "calculatorEurPl",
         title = "Kalkulator",

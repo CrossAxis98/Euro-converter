@@ -43,12 +43,6 @@ fun CalculatorEurPl() {
         Column( modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceEvenly) {
-            OutlinedTextField(
-                value = amountToExchange,
-                onValueChange = { amountToExchange = it },
-                label = { Text("Ile euro wymieniamy")},
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
-            )
             Box(
                 modifier = Modifier.fillMaxWidth(),
                 contentAlignment = Alignment.CenterStart
@@ -94,14 +88,24 @@ fun CalculatorEurPl() {
                             Text(text = "+")
                         }
                     }
+
                 }
             }
+
+            OutlinedTextField(
+                value = amountToExchange,
+                onValueChange = { amountToExchange = it },
+                label = { Text("Ile euro wymieniamy")},
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+            )
+
             Button(onClick = {
                 expectedAmout = euroValueToCalculate * amountToExchange.toDouble()
             }) {
                 Text(
                     text = "Oblicz",
-                    color = Color.Black
+                    color = Color.Black,
+                    fontSize = 20.sp
                 )
             }
 

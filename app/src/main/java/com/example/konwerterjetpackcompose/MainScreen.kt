@@ -25,8 +25,7 @@ fun MainScreen() {
 fun BottomBar(navController: NavHostController) {
     val screens = listOf(
         BottomBarScreen.HomeEurPl,
-        BottomBarScreen.CalculatorEurPl,
-        BottomBarScreen.AllCurrencies
+        BottomBarScreen.CalculatorEurPl
     )
 
     val navBackStackEntry by navController.currentBackStackEntryAsState()
@@ -66,7 +65,7 @@ fun RowScope.AddItem(
                 tint = Color.Black
             )
         },
-        selected = currentDestination?.hierarchy?.any {
+        selected = currentDestination.hierarchy.any {
             it.route == screen.route
         } == true,
         onClick = {

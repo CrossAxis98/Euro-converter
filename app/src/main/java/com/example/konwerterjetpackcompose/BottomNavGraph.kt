@@ -5,7 +5,6 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.konwerterjetpackcompose.screens.AllCurrencies
 import com.example.konwerterjetpackcompose.screens.CalculatorEurPl
 import com.example.konwerterjetpackcompose.screens.HomeEurPl
 
@@ -18,9 +17,6 @@ fun BottomNavGraph(navController: NavHostController) {
          composable(route = BottomBarScreen.HomeEurPl.route) {
              HomeEurPl()
          }
-        composable(route = BottomBarScreen.AllCurrencies.route) {
-            AllCurrencies()
-        }
         composable(route = BottomBarScreen.CalculatorEurPl.route) {
             CalculatorEurPl()
         }
