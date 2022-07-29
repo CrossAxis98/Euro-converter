@@ -30,7 +30,6 @@ import java.io.IOException
 import kotlin.math.roundToInt
 
 const val TAG = "Main Activity"
-//dupaTest
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
