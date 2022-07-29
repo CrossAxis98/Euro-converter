@@ -9,12 +9,15 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-
-//const val euroValue = "4,78"
-//const val currentDate = "16.07.2022"
+import kotlin.math.min
+import kotlin.math.pow
+import kotlin.math.sqrt
 
 var euroValue : Double = 5.0
 var currentDate = "dupa"
@@ -24,7 +27,7 @@ fun HomeEurPl() {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White),
+            .gradientBackground(listOf(Color.Yellow, Color.White), angle = 45f),
         contentAlignment = Alignment.Center
     ) {
         Column {
@@ -47,3 +50,27 @@ fun HomeEurPl() {
 fun HomeEurPlPreview() {
     HomeEurPl()
 }
+
+private fun Modifier.gradientBackground(colors: List<Color>, angle: Float) = this.then(
+    Modifier.drawBehind {
+
+        val angleRad = angle / 180f * Math.PI
+        val x = kotlin.math.cos(angleRad).toFloat()
+        val y = kotlin.math.sin(angleRad).toFloat()
+        val radius = sqrt(size.width.pow(2) + size.height.pow(2)) / 2f
+        val offset = center + Offset(x * radius, y * radius)
+        val exactOffset = Offset(
+            x = min(offset.x.coerceAtLeast(0f), size.width),
+            y = size.height - min(offset.y.coerceAtLeast(0f), size.height)
+        )
+
+        drawRect(
+            brush = Brush.linearGradient(
+                colors = colors,
+                start = Offset(size.width, size.height) - exactOffset,
+                end = exactOffset
+            ),
+            size = size
+        )
+    }
+)

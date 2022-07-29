@@ -60,7 +60,6 @@ class MainActivity : ComponentActivity() {
                 for (currency in Rates::class.java.declaredFields) {
                     val currencyName = currency.toString().substringAfterLast(".")
                     val currencyValue: Double = getRateForCurrency(currencyName, allRatesDupa)
-                    //Log.d(TAG, "XXX $currencyName $currencyValue")
                     mapCurrencies.value += mapOf(currencyName to (((response.body()!!.rates.PLN / currencyValue) * 100).roundToInt() / 100.0))
                 }
             } else {
@@ -116,7 +115,6 @@ class MainActivity : ComponentActivity() {
            "DJF" -> allRates.DJF
            "ERN" -> allRates.ERN
            "ETB" -> allRates.ETB
-           //"val" -> allRates.val
            "FJD" -> allRates.FJD
            "FKP" -> allRates.FKP
            "GBP" -> allRates.GBP

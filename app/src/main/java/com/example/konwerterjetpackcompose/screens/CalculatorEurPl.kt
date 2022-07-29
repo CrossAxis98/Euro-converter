@@ -5,11 +5,15 @@ import android.widget.Space
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.font.FontWeight
@@ -18,7 +22,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kotlin.math.min
+import kotlin.math.pow
 import kotlin.math.roundToInt
+import kotlin.math.sqrt
 
 @Composable
 fun CalculatorEurPl() {
@@ -30,9 +37,8 @@ fun CalculatorEurPl() {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White)
+            .gradientBackground(listOf(Color.Yellow, Color.White), angle = 45f)
             .padding(10.dp)
-        //contentAlignment = Alignment.Center
     ) {
         Column( modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -43,7 +49,6 @@ fun CalculatorEurPl() {
                 label = { Text("Ile euro wymieniamy")},
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
             )
-//            Spacer(modifier = Modifier.height(50.dp))
             Box(
                 modifier = Modifier.fillMaxWidth(),
                 contentAlignment = Alignment.CenterStart
@@ -63,10 +68,9 @@ fun CalculatorEurPl() {
                                 euroValueToCalculate-=0.01
                             },
                             colors = ButtonDefaults.buttonColors(
-                                backgroundColor = Color.White,
+                                backgroundColor = Color.Transparent,
                                 contentColor = Color.Black
-                            ),
-                            modifier = Modifier.border(1.dp, Color.Black)
+                            )
                         ) {
                             Text(text = "-")
                         }
@@ -83,12 +87,8 @@ fun CalculatorEurPl() {
                                 euroValueToCalculate+=0.01
                             },
                             colors = ButtonDefaults.buttonColors(
-                                backgroundColor = Color.White,
+                                backgroundColor = Color.Transparent,
                                 contentColor = Color.Black
-                            ),
-                            modifier = Modifier.border(
-                                1.dp,
-                                Color.Black
                             )
                         ) {
                             Text(text = "+")
@@ -99,7 +99,10 @@ fun CalculatorEurPl() {
             Button(onClick = {
                 expectedAmout = euroValueToCalculate * amountToExchange.toDouble()
             }) {
-                Text(text = "Oblicz")
+                Text(
+                    text = "Oblicz",
+                    color = Color.Black
+                )
             }
 
             Text(
@@ -118,3 +121,27 @@ fun CalculatorEurPl() {
 fun CalculatorEurPlPreview() {
     CalculatorEurPl()
 }
+
+private fun Modifier.gradientBackground(colors: List<Color>, angle: Float) = this.then(
+    Modifier.drawBehind {
+
+        val angleRad = angle / 180f * Math.PI
+        val x = kotlin.math.cos(angleRad).toFloat()
+        val y = kotlin.math.sin(angleRad).toFloat()
+        val radius = sqrt(size.width.pow(2) + size.height.pow(2)) / 2f
+        val offset = center + Offset(x * radius, y * radius)
+        val exactOffset = Offset(
+            x = min(offset.x.coerceAtLeast(0f), size.width),
+            y = size.height - min(offset.y.coerceAtLeast(0f), size.height)
+        )
+
+        drawRect(
+            brush = Brush.linearGradient(
+                colors = colors,
+                start = Offset(size.width, size.height) - exactOffset,
+                end = exactOffset
+            ),
+            size = size
+        )
+    }
+)
